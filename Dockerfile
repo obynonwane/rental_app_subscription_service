@@ -1,37 +1,28 @@
 
-# base go image - for production 
-FROM --platform=linux/amd64 alpine:latest
-
-RUN mkdir /app
-
-COPY subscriptionApp /app
-
-CMD [ "/app/subscriptionApp" ]
-
-
-# base go image - for development 
-
-# FROM golang:1.21-alpine as builder
+# # base go image - for production
+# FROM --platform=linux/amd64 alpine:latest
 
 # RUN mkdir /app
 
-# COPY . /app
-
-# WORKDIR /app
-
-# RUN CGO_ENABLED=0 go build -o subscriptionApp ./cmd/api
-
-# RUN chmod +x /app/subscriptionApp
-
-# # build a tiny docker image
-
-# FROM alpine:latest
-
-# RUN mkdir /app
-
-# COPY --from=builder /app/subscriptionApp /app
+# COPY subscriptionApp /app
 
 # CMD [ "/app/subscriptionApp" ]
 
 
+# Use Go 1.22 for building and running tests
+FROM golang:1.22-alpine AS builder
 
+# Set the working directory in the container
+WORKDIR /app
+
+# Install make and other necessary packages (e.g., git)
+RUN apk add --no-cache git make
+
+# Copy the entire source code into the container
+COPY . .
+
+# Download the Go modules dependencies
+RUN go mod download
+
+# Default command to run the binary
+CMD ["/app/subscriptionApp"]
