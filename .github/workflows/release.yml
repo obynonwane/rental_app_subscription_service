@@ -40,9 +40,9 @@ jobs:
           echo "Environment variables:"
           env
 
-      # Build broker binary using Makefile
-      - name: Build Broker Binary
-        run: make build_broker_service
+      # Build subscription binary using Makefile
+      - name: Build Subscription Binary
+        run: make build_subscription_service
 
       # Log in to Docker Hub
       - name: Log in to Docker Hub
