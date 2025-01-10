@@ -6,6 +6,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 /* returns http.Handler*/
@@ -25,6 +26,8 @@ func (app *Config) routes() http.Handler {
 	mux.Use(middleware.Heartbeat("/ping"))
 
 	mux.Post("/", app.Subscription)
+	// Add the Prometheus metrics endpoint to the router
+	mux.Handle("/metrics", promhttp.Handler())
 
 	return mux
 }
