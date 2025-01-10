@@ -24,7 +24,7 @@ jobs:
         with:
           go-version: "1.21.0"
 
-      # Install dependencies
+      # Install dependencies ---
       - name: Install Dependencies
         run: |
           go mod tidy
