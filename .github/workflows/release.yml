@@ -40,7 +40,7 @@ jobs:
           echo "Environment variables:"
           env
 
-      # Build subscription binary using Makefile
+      # Build subscription binary using Makefile.
       - name: Build Subscription Binary
         run: make build_subscription_service
 
